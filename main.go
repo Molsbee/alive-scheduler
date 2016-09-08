@@ -56,9 +56,9 @@ func main() {
 	scheduler.ScheduleSimpleTask().Minute(1).Run(httpService.DispatchHTTPGetWork)
 	scheduler.Start()
 
-	healthResource := resource.NewHealthResource(db, queue)
-
 	router := mux.NewRouter()
+
+	healthResource := resource.NewHealthResource(db, queue)
 	router.HandleFunc("/health", healthResource.Get)
 
 	http.ListenAndServe(":8080", router)
